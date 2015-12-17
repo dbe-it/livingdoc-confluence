@@ -127,4 +127,9 @@ public abstract class AbstractLivingDocAction extends ConfluenceActionSupport {
         if ( ! hasActionErrors())
             super.addActionError(msg);
     }
+
+    public String getMaxResponseTime(){
+        String retVal = ldUtil.getLDServerConfigurationActivator().getConfiguration().getProperties().getProperty("maxResponseTime");
+        return retVal;
+    }
 }

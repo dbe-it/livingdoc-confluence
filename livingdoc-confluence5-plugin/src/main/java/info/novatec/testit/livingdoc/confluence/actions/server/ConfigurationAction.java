@@ -11,6 +11,7 @@ import com.atlassian.confluence.spaces.Space;
 import com.atlassian.confluence.spaces.SpaceType;
 import com.atlassian.confluence.spaces.SpacesQuery;
 
+import info.novatec.testit.livingdoc.confluence.LivingDocServerConfiguration;
 import info.novatec.testit.livingdoc.confluence.velocity.ConfluenceLivingDoc;
 import info.novatec.testit.livingdoc.server.LivingDocServerException;
 import info.novatec.testit.livingdoc.server.domain.ClasspathSet;
@@ -43,6 +44,7 @@ public class ConfigurationAction extends LivingDocServerAction {
 
     private boolean secured;
     private boolean addMode;
+    private boolean editMode = false;
     private boolean editPropertiesMode;
     private boolean editClasspathsMode;
 
@@ -278,6 +280,24 @@ public class ConfigurationAction extends LivingDocServerAction {
 
     public String getNewCmdLineTemplate() {
         return newCmdLineTemplate;
+    }
+
+    public String getMaxResponseTime(){
+        return ldUtil.getLDServerConfigurationActivator().getConfiguration().getProperties().getProperty("maxResponseTime");
+    }
+
+    public void setMaxResponseTime(String maxResponseTime){
+        LivingDocServerConfiguration conf = ldUtil.getLDServerConfigurationActivator().getConfiguration();
+        conf.getProperties().setProperty("maxResponseTime", maxResponseTime);
+        ldUtil.getLDServerConfigurationActivator().storeConfiguration(conf);
+    }
+
+    public boolean isEditMode() {
+        return editMode;
+    }
+
+    public void setEditMode(boolean editMode) {
+        this.editMode = editMode;
     }
 
     private void successfullAction() {
